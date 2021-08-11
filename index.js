@@ -1,6 +1,7 @@
 const express = require('express')
 const teams = require('./teams')
 
+
 const app = express()
 
 // create a get route that returns a list of team data
@@ -8,6 +9,39 @@ const app = express()
 // shows route is responding 
 app.get('/', (request, response) => {
   return response.send('Hello World')
+})
+
+app.use(express.json())
+
+
+
+app.post('/teams', (request, response) => {
+  // eslint-disable-next-line no-console
+  console.log(request.body)
+  const {
+    location, mascot, abbreviation, division, conference
+  } = request.body
+
+  // check response body for all fields
+  if (!location || !mascot || !abbreviation || !conference || !division) {
+    return response.status(400).send('missing fields')
+  }
+  // if we have all of the fields get id of last field and add 1
+  const newTeamID = teams[teams.length - 1].id + 1
+  // if not, create new team from data provided 
+  const newTeamObj = {
+    id: newTeamID,
+    location: location,
+    abbreviation: abbreviation,
+    mascot: mascot,
+    conference: conference,
+    division: division
+  }
+
+  // add it to teams array
+  teams.push(newTeamObj)
+  // respond with the newly created team
+  response.send(newTeamObj)
 })
 
 // shows route is responding

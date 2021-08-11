@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/Forensicrose/nfl-api#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body": "^5.1.0",
+    "express": "^4.17.1",
+    "parser": "^0.1.4"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
